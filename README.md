@@ -15,6 +15,8 @@
 
 * [Project report (Overleaf)](https://www.overleaf.com/project/605b031f821ced27615a78f7)
 
+* [Project management (Trello)](https://trello.com/b/ZrHh8m4k/project-management)
+
 
 ## Group roles
 * Rebecca - Kund- och kravansvarig (Stakeholder Representation)
