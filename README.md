@@ -11,7 +11,7 @@
  
 * [Gantt-schema](https://docs.google.com/spreadsheets/d/12thC9ZnBK4O3OhtW8BYUhSf-UmhxJAaR/edit#gid=1743453955)
 
-* [Tidsrapportering](https://docs.google.com/spreadsheets/d/1aik8IIxXMW7MHFA452vQXWe7N7FpXISCFxfexrjWyVg/edit?usp=sharing)
+* [Tidsrapportering](https://docs.google.com/spreadsheets/d/1vp7Q_OOhjo7qu1nwA-SIR7RZV6bkVj3-MUISByqeyK8/edit#gid=891955315)
 
 * [Project report (Overleaf)](https://www.overleaf.com/project/605b031f821ced27615a78f7)
 
