@@ -1,4 +1,5 @@
 # webpage
+All these command should be executed in the directory on your machine after cloning.
 
 ## Project setup
 ```
@@ -9,11 +10,5 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
