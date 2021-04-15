@@ -1,6 +1,6 @@
 <template>
-    <div class="sidenav">
-        <Toolbar/>
+    <div class="toolbar">
+        <Toolbar />
     </div>
     <div class="mainContent">
         <router-view />
@@ -37,21 +37,21 @@ export default {
 #nav a.router-link-exact-active {
     color: #42b983;
 }
-/* The sidebar menu */
-.sidenav {
+/* Toolbar */
+.toolbar {
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 15rem; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #303C6C; /* Black */
+    background-color: #303c6c;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
 
-/* The navigation menu links */
-.sidenav a {
+/* Link styling */
+.toolbar a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
@@ -59,8 +59,8 @@ export default {
     display: block;
 }
 
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
+/* Hover effect */
+.toolbar a:hover {
     background-color: #424b6e;
     color: #f1f1f1;
 }
