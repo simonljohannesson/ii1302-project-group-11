@@ -1,4 +1,8 @@
 # webpage
+Prerequisites to run the frontend
+- [npm](https://www.npmjs.com/)
+- [Vue CLI](https://cli.vuejs.org/)
+
 All these command should be executed in the directory on your machine after cloning.
 
 ## Project setup
