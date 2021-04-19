@@ -99,7 +99,7 @@ By working with "IBM Cloudant Query" and using selector syntax. See [link](https
 ### API definition
 Not yet defined.
 
-### Action: ``prepare-new-room-data-for-save``
+### Action: ``prepare-new-room-data-for-save`` -> ``new_room_save_document``
 
 
 Input data format:
@@ -119,7 +119,7 @@ Output format:
         "rev": "1-eb298ab18914d1b1513f4220313f317e"
     }
 
-### Action: ``format-create-room-response``
+### Action: ``format-create-room-response`` -> ``new_room_reply``
 Output format:
 
     {
@@ -135,7 +135,7 @@ Output format:
 
 ## Sequence: ``get-room-count``
 
-### Action: ``prepare-get-room-count-query``
+### Action: ``prepare-get-room-count-query`` --> Refactored: ``room_count_selector``
 Input:
 
     {
@@ -151,11 +151,11 @@ Does a query for the room and returns it if:
 >    b. user is admin of room, or
 >    c. room is visible to user
 
-### Action: ``format-get-room-count-response``
+### Action: ``format-get-room-count-response`` -> Refactored: ``room_count_reply``
 Returns:
 
     {
-        "Error":...
+        "error":...
     }
 or:
 
