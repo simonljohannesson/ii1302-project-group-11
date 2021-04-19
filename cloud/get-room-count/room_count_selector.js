@@ -4,10 +4,10 @@ function main(params) {
     //     "room_name": "living_room",
     //     "user_name": "frantic_maniac"
     // }
-    prepare_get_room_count_query(params)
+    room_count_selector(params)
 }
 
-function prepare_get_room_count_query(params){
+function room_count_selector(params){
     if(!params.room_name || !params.user_name){
         return {"error": "Missing room_name or user_name"}
     }
@@ -54,4 +54,4 @@ function prepare_get_room_count_query(params){
     };
 }
 
-module.exports = prepare_get_room_count_query
+module.exports = room_count_selector
