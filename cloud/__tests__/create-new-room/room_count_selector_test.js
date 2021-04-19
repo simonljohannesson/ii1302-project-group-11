@@ -40,16 +40,16 @@ let input_2 = {"room_name": "living_room"}
 let input_3 = {"user_name": "living_room"}
 let expected_output_2 = {"error": "Missing room_name or user_name"}
 
-const prepare_get_room_count_query = require("../../get-room-count/prepare-get-room-count-query.js")
+const room_count_selector = require("../../get-room-count/room_count_selector.js")
 
-describe("prepare-get-room-count-query function", () => {
+describe("room_count_selector function", () => {
     test("document found input", () => {
-        expect(prepare_get_room_count_query(input_1)).toMatchObject(expected_output_1)
+        expect(room_count_selector(input_1)).toMatchObject(expected_output_1)
     });
     test("no user_name input", () => {
-        expect(prepare_get_room_count_query(input_2)).toMatchObject(expected_output_2)
+        expect(room_count_selector(input_2)).toMatchObject(expected_output_2)
     });
     test("no room_name input", () => {
-        expect(prepare_get_room_count_query(input_3)).toMatchObject(expected_output_2)
+        expect(room_count_selector(input_3)).toMatchObject(expected_output_2)
     });
 })

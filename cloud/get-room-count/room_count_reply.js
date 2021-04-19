@@ -5,7 +5,7 @@
  *    {
  *      "room_name": val,
  *      "room_count": val, 
-        "last_updated": val
+ *      "last_updated": val
  *    }
  * otherwise it will return an object on the format:
  *    {
@@ -46,7 +46,7 @@
  * @param {*} params 
  * @returns 
  */
-function format_get_room_count_response(params) {
+function room_count_reply(params) {
   if (!params.docs.length){
       return {
           "error": "Could not find specified room."
@@ -64,9 +64,9 @@ function format_get_room_count_response(params) {
   }
 }
 
-module.exports = format_get_room_count_response
+module.exports = room_count_reply
 
 /** Execute */
 function main(params) {
-  format_get_room_count_response(params)
+  room_count_reply(params)
 }

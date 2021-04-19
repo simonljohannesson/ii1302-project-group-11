@@ -40,15 +40,14 @@ let expected_output_2 = {
     "error": "Could not find specified room."
 }
 
-const format_get_room_count_response = require("../../get-room-count/format-get-room-count-response.js")
+const room_count_reply = require("../../get-room-count/room_count_reply.js")
 
-describe("format_get_room_count_response function", () => {
+describe("room_count_reply function", () => {
     test("document found input", () => {
-        expect(format_get_room_count_response(input1)).toMatchObject(expected_output_1)
+        expect(room_count_reply(input1)).toMatchObject(expected_output_1)
     });  
 
     test("document not found input", () => {
-        console.log(format_get_room_count_response(input2))
-        expect(format_get_room_count_response(input2)).toMatchObject(expected_output_2)
+        expect(room_count_reply(input2)).toMatchObject(expected_output_2)
     });  
 })
