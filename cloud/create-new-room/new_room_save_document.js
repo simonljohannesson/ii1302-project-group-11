@@ -5,8 +5,12 @@
         user_name: <user-unique-databse-id>
     }
  */
-  
-function main(params) {
+
+function main(params){
+    new_room_save_document(params)
+}
+
+function new_room_save_document(params) {
     if (!params.room_name || !params.admin) {
         return Promise.reject({ error: 'no room_name or admin'});
     }
@@ -28,13 +32,4 @@ function main(params) {
     };
 }
 
-let a = {
-    "room_name": "userchosenname",
-    "admin": "useruniquedatabseid"
-}
-let b = {
-    "meh": "userchosenname",
-    "no": "useruniquedatabseid"
-}
-
-console.log(main(b))
+module.exports = new_room_save_document

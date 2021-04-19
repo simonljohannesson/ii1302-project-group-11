@@ -1,8 +1,9 @@
+function main(params){
+    new_room_reply(params)
+}
 /**
- * format-create-room-response
- * 
  * Formats the response received from the Cloudant database 
- * in a cohesive way for the caller.
+ * for the caller.
  * 
  * @param {
             "id": string,
@@ -11,11 +12,11 @@
           } params 
  * @returns room creation status
  */
-function main(params) {
+function new_room_reply(params) {
     if (!params.id || !params.ok) {
-        return {
+        return Promise.reject({
             "error": "Could not process request."
-        };
+        });
     }
 
     return {
@@ -24,10 +25,4 @@ function main(params) {
     }
 }
 
-
-
-let a = {
-    "id": "29b9408bf5bf01eee3bdbc3f0c0172ee",
-    "ok": true,
-    "rev": "1-eb298ab18914d1b1513f4220313f317e"
-}
+module.exports = new_room_reply

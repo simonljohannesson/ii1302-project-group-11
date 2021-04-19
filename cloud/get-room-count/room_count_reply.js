@@ -48,9 +48,9 @@
  */
 function room_count_reply(params) {
   if (!params.docs.length){
-      return {
+      return Promise.reject({
           "error": "Could not find specified room."
-      }
+      });
   }
   return {
           rooms: 

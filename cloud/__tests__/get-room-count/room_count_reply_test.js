@@ -48,6 +48,7 @@ describe("room_count_reply function", () => {
     });  
 
     test("document not found input", () => {
-        expect(room_count_reply(input2)).toMatchObject(expected_output_2)
+        expect.assertions(1)
+        return room_count_reply(input2).catch(e=>expect(e).toMatchObject(expected_output_2))
     });  
 })
