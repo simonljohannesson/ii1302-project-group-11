@@ -1,46 +1,11 @@
 # Cloud / Backend notes
 
----
-
-## TODO next: 
-- Database model (see draft on paper)
-- Try to create your own queries to select whichever document to receive.
-- Learn to use IBM cloud CLI to speed up development & avoid buggy website interface.
-- Sequences to build:
-    - [x] get-room-count
-    - [x] create-new-room
-    - [ ] create-new-user
-    - [ ] plus-minus-one-room-count
-    - [ ] set-room-count
-    - [ ] initialization of database including indices
-- Improve create-new-room sequence to validate that name is unique
-
 
 ---
 
 ## Cloudant database
 
-
-Example of a document:
-
-    {
-        "id": "48ff32463298267888f83e1885218baf",
-        "key": "48ff32463298267888f83e1885218baf",
-        "value": {
-            "rev": "1-9712c8e27ba342a72ff0f5e6ebdadaa3"
-        },
-        "doc": {
-            "_id": "48ff32463298267888f83e1885218baf",
-            "_rev": "1-9712c8e27ba342a72ff0f5e6ebdadaa3",
-            "comment": "Hallojsan Victor!",
-            "createdAt": "2021-04-14T13:45:01.967Z",
-            "email": "apa@mail.com",
-            "name": "Simon"
-        }
-    }
-
-
-Document structure idea for room (under ``"doc":``):
+Document structure for ``room`` (under ``"doc":``):
 
     {
         "_id": ...,
@@ -60,7 +25,7 @@ Document structure idea for room (under ``"doc":``):
         "last_updated": date/time
     }
 
-Document structure idea room statistics:
+Document structure ``room_statistics``:
 
     {
         "_id": ...,
@@ -91,9 +56,8 @@ To collect data an action could be run a few times per hour and save the current
 
 To generate the ``diagram-values`` an action could be run a few times per day (or week) which would calculate the average values that are of interest in the diagram.
 
-How to find rooms? Well thought out indexing is probably the solution.
 
-User specific information, a document for each user to keep track of saved rooms:
+Document structure ``user``:
 
     {   
         "_id": ...,
@@ -105,7 +69,7 @@ User specific information, a document for each user to keep track of saved rooms
     }
 
 
-IOT-devices:
+Document structure ``IOT-devices``:
 
     {
         "_id": ...,
@@ -123,7 +87,7 @@ IOT-devices:
 
 How to perform specific querying with cloudant functions/sequences/actions?
 
-Likely by working with "IBM Cloudant Query" and using selector syntax. See [link](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query).
+By working with "IBM Cloudant Query" and using selector syntax. See [link](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query).
 
 
 
@@ -202,15 +166,3 @@ or:
     }
 
 ---
-
-## Info about CouchDB/Cloudant
-
-### Updating
-- CouchDB document update model is lockless and optimistic.
-- Document edits are made by client applications loading documents, applying changes, and saving them back to the database
-- If another client editing the same document saves their changes first, the client gets an edit conflict error on save. To resolve the update conflict, the latest document version can be opened, the edits reapplied and the update tried again.
-- Single document updates (add, edit, delete) are all or nothing, either succeeding entirely or failing completely. The database never contains partially saved or edited documents.
-
-### Reading
-- CouchDB can guarantee transactional semantics on a per-document basis.
-- each client sees a consistent snapshot of the database from the beginning to the end of the read operation
