@@ -24,7 +24,7 @@ let expected_output_1 = {
             last_updated: ""
     }
 }
-let expected_output_2 = Promise.reject({ error: 'no room_name or admin'})
+let expected_output_2 = { "error": 'no room_name or admin'};
 
 let new_room_save_document = require("../../create-new-room/new_room_save_document.js")
 
