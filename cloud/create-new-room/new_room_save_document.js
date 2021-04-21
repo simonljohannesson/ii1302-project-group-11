@@ -7,7 +7,7 @@
  */
 
 function main(params){
-    new_room_save_document(params)
+    return new_room_save_document(params)
 }
 
 function new_room_save_document(params) {

@@ -4,12 +4,12 @@ function main(params) {
     //     "room_name": "living_room",
     //     "user_name": "frantic_maniac"
     // }
-    room_count_selector(params)
+    return room_count_selector(params)
 }
 
 function room_count_selector(params){
     if(!params.room_name || !params.user_name){
-        return {"error": "Missing room_name or user_name"}
+        return Promise.reject( {"error": "Missing room_name or user_name"});
     }
     
 	return {

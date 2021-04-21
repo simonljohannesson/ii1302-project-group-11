@@ -68,5 +68,5 @@ module.exports = room_count_reply
 
 /** Execute */
 function main(params) {
-  room_count_reply(params)
+  return room_count_reply(params)
 }

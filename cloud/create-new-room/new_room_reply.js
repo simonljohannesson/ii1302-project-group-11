@@ -1,5 +1,5 @@
 function main(params){
-    new_room_reply(params)
+    return new_room_reply(params)
 }
 /**
  * Formats the response received from the Cloudant database 
