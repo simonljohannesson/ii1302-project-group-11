@@ -47,9 +47,11 @@ describe("room_count_selector function", () => {
         expect(room_count_selector(input_1)).toMatchObject(expected_output_1)
     });
     test("no user_name input", () => {
-        expect(room_count_selector(input_2)).toMatchObject(expected_output_2)
+        expect.assertions(1)
+        return room_count_selector(input_2).catch(e=>expect(e).toMatchObject(expected_output_2))
     });
     test("no room_name input", () => {
-        expect(room_count_selector(input_3)).toMatchObject(expected_output_2)
+        expect.assertions(1)
+        return room_count_selector(input_3).catch(e=>expect(e).toMatchObject(expected_output_2))
     });
 })
