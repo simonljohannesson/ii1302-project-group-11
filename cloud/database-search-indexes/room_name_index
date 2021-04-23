@@ -1,0 +1,3 @@
+function (doc) {
+    index("room_name", doc.room_name);
+  }
