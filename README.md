@@ -17,6 +17,8 @@
 
 * [Project management (Trello)](https://trello.com/b/ZrHh8m4k/project-management)
 
+* [Projektledarens arbetsbudget](https://docs.google.com/spreadsheets/d/1KJXc2SJbVL4yNhpq5sEKXx0G6GZ10QzaZ1p8KwPPH6U/edit#gid=0)
+
 
 ## Group roles
 * Rebecca - Kund- och kravansvarig (Stakeholder Representation)
