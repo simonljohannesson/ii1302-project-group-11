@@ -5,7 +5,7 @@ export default createStore({
   state: {
     userName: "someadmin",
     /* information about rooms */
-    searchResult : {error: "no search results"},//null,
+    searchResult : null,
     storedSearchResults : [
     {
       last_updated: '2021-04-21T07:01:48.387Z',
@@ -38,7 +38,7 @@ export default createStore({
     },
     SET_LAST_ROOM_SEARCH(state, roomName){
       console.log('Setting the last room search manually.')
-      state.commit("setSearchResult", {last_updated: "12:31", room_count: 66, room_name: roomName})
+      state.commit("setSearchResult", {last_updated: '2277-11-22T07:00:00.017Z', room_count: 66, room_name: roomName})
     }
   },
   getters:{

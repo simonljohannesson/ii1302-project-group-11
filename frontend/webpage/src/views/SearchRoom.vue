@@ -4,9 +4,9 @@
             <h1>Rooms</h1>
         <div>
             <div v-if="storedSearchResultsExists">Stored search results
-                <div v-for="item in getStoredSearchResults" :key="item.room_name">
-                    <span> {{item}} </span>
-                </div>
+                <span v-for="item in getStoredSearchResults" :key="item.room_name">
+                    <RoomCount :roomInfo="item"/>
+                </span>
             </div>
             <span v-else>No search results stored.</span>
             <span></span>
@@ -15,15 +15,18 @@
             <input v-model="searchInput" placeholder="Enter a room name." @keyup.enter="searchRoom">
             <a class="search noselect" v-on:click="searchRoom" >Search</a>
         <div>
-        <div>{{searchInput}}</div>
-        <div v-if="lastSearchExists()">{{getLastSearch}}</div>
+        <RoomCount v-if="lastSearchExists()" :roomInfo="getLastSearch" />
         <div v-else>Search not made yet.</div>
         </div>
     </div>
 </template>
 
 <script>
+import RoomCount from "@/components/RoomCount.vue";
 export default {
+    components: {
+      RoomCount
+    },
     data : ()=> {
         return  {
             searchInput: ""
@@ -66,7 +69,6 @@ export default {
 .search{
     text-decoration: none;
     background-color: var(--bc-yellow);
-    /* background-color: #b4dfe5; */
     color: var(--bc-blue);
     padding: 0.2em 1em;
 }
