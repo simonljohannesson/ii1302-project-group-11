@@ -1,7 +1,9 @@
 import { createServer, Model, Factory, Response } from "miragejs"
 
-export function startMirage() {
+// Start defaults to 'development' mode which also simulates api request delay of 400ms. Can be changed
+export function startMirage({ environment = "development" } = {}) {
   return createServer({
+    environment,
     /**
      * Mocking data is stored in models. To access them from routes, the name needs to be in plural.
      * For example, the model 'room' is access by the name 'rooms' which will look like 
