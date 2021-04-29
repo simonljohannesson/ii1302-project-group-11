@@ -13,9 +13,11 @@ export default {
   },
   computed: {
     roomName() {
+      if(!this.roomInfo) return null;
       return this.roomInfo["room_name"];
     },
     roomCount() {
+      if(!this.roomInfo) return null;
       return this.roomInfo["room_count"];
     },
     lastUpdated() {

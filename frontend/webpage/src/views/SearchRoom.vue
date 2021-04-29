@@ -20,8 +20,8 @@
     />
     <a class="search noselect" v-on:click="searchRoom">Search</a>
     <div>
-      <RoomCount v-if="lastSearchExists()" :roomInfo="getLastSearch" />
-      <div v-else>Search not made yet.</div>
+      <RoomCount v-if="validLastSearchExists()" :roomInfo="getLastSearch" />
+      <div v-else>{{getLastSearch ? getLastSearch["error"] : false ||"Search not made yet."}}</div>
     </div>
   </div>
 </template>
@@ -38,9 +38,9 @@ export default {
     };
   },
   methods: {
-    test: () => console.log(new Date()),
-    lastSearchExists() {
-      if (this.$store.getters.getSearchResult === null) {
+    validLastSearchExists() {
+      let searchResult = this.$store.getters.getSearchResult;
+      if (searchResult == null || searchResult["error"]) {
         return false;
       } else {
         return true;
@@ -60,7 +60,7 @@ export default {
           " username: " +
           this.$store.getters.getUserName
       );
-      this.$store.dispatch("SET_LAST_ROOM_SEARCH", this.searchInput);
+      this.$store.dispatch("SEARCH_ROOM_COUNT", this.searchInput);
     },
   },
   computed: {

@@ -27,19 +27,22 @@ export default createStore({
   mutations: {
     setSearchResult(state, roomInfo) {
       state.searchResult = roomInfo;
-    }
+    },
   },
   actions: {
-    GET_ROOM_COUNT(state, roomName, userName) {
-      ibmAPI.getRoomCount(roomName, userName)
+    SEARCH_ROOM_COUNT(context, roomName) {
+      
+      console.log(roomName + "<- room user ->" + context.state.userName)
+      ibmAPI.getRoomCount(roomName, context.state.userName)
         .then((data => {
-          state.commit("setSearchResult", res)
+          console.log(data)
+          context.commit("setSearchResult", data)
         }))
     },
-    SET_LAST_ROOM_SEARCH(state, roomName) {
+    SET_LAST_ROOM_SEARCH(context, roomName) {
       console.log('Setting the last room search manually.')
-      state.commit("setSearchResult", { last_updated: '2277-11-22T07:00:00.017Z', room_count: 66, room_name: roomName })
-    }
+      context.commit("setSearchResult", { last_updated: '2277-11-22T07:00:00.017Z', room_count: 66, room_name: roomName })
+    },
   },
   getters: {
     getSearchResult(state) {

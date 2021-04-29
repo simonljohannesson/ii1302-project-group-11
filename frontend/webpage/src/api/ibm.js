@@ -3,7 +3,7 @@ const baseURL = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/8
 
 const fetch = require("node-fetch");
 
-const ibmAPI = {
+export const ibmAPI = {
     getRoomCount : (roomName, userName) => {
         const path = "/room_count" + "?user_name=" + userName + "&room_name=" + roomName
         let options = {
@@ -31,8 +31,3 @@ const ibmAPI = {
           })
     }
 };
-
-// ibmAPI.getRoomCount("somename", "someadmin").then(res=>console.log(res))
-
-
-
