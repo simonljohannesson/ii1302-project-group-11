@@ -20,11 +20,11 @@ const routes = [
     name: 'About',
     component: About
   },
-    {
-      path: '/searchroom',
-      name: 'SearchRoom',
-      component: RoomCount
-    }
+  {
+    path: '/searchroom',
+    name: 'SearchRoom',
+    component: RoomCount
+  }
 ]
 
 const router = createRouter({
