@@ -3,26 +3,21 @@ import { ibmAPI } from "../api/ibm.js"
 
 export default createStore({
   state: {
+    /* 
+      user identifyer, currently used when making api calls for the room count 
+      should not be hard coded
+    */
     userName: "someadmin",
     /* information about rooms */
     searchResult: null,
-    storedSearchResults: [
+    /* Array with search results of the object with the format:
       {
-        last_updated: '2021-04-21T07:01:48.387Z',
-        room_count: 14,
-        room_name: 'somename1'
-      },
-      {
-        last_updated: '2021-04-21T07:01:48.387Z',
-        room_count: 14,
-        room_name: 'somename2'
-      },
-      {
-        last_updated: '2021-04-21T07:01:48.387Z',
-        room_count: 14,
-        room_name: 'somename3'
+          last_updated: '2021-04-21T07:01:48.387Z',
+          room_count: 14,
+          room_name: 'somename1'
       }
-    ]
+    */
+    storedSearchResults: []
   },
   mutations: {
     setSearchResult(state, roomInfo) {
@@ -30,19 +25,28 @@ export default createStore({
     },
   },
   actions: {
+    /**
+     * Search for the room count information of a room.
+     * 
+     * Return obeject format: 
+     * {
+     *    last_updated: '2021-04-21T07:01:48.387Z',
+     *    room_count: 14,
+     *    room_name: 'somename1'
+     * }
+     * or 
+     * {error: "..."}
+     * 
+     * @param {vuex context} context 
+     * @param {String} roomName 
+     * @returns {Object}
+     */
     SEARCH_ROOM_COUNT(context, roomName) {
-      
-      console.log(roomName + "<- room user ->" + context.state.userName)
       ibmAPI.getRoomCount(roomName, context.state.userName)
         .then((data => {
-          console.log(data)
           context.commit("setSearchResult", data)
         }))
-    },
-    SET_LAST_ROOM_SEARCH(context, roomName) {
-      console.log('Setting the last room search manually.')
-      context.commit("setSearchResult", { last_updated: '2277-11-22T07:00:00.017Z', room_count: 66, room_name: roomName })
-    },
+    }
   },
   getters: {
     getSearchResult(state) {
