@@ -12,15 +12,26 @@ export default {
     roomInfo: Object,
   },
   computed: {
+    /**
+     * Get room name info from prop object.
+     */
     roomName() {
       if(!this.roomInfo) return null;
       return this.roomInfo["room_name"];
     },
+    /**
+     * Get room count info from prop object.
+     */
     roomCount() {
       if(!this.roomInfo) return null;
       return this.roomInfo["room_count"];
     },
+    /**
+     * Get last updated info from prop object.
+     * Formats time if it exists.
+     */
     lastUpdated() {
+      if(!this.roomInfo) return null;
       let time = this.roomInfo["last_updated"];
       if (!time) return "No time available";
       time = new Date(time);
@@ -33,13 +44,9 @@ export default {
       return `${y}-${M}-${d} ${h}:${m}:${s}`;
     },
   },
-  data() {
+  data: ()=>{
     return {
-      room_info: {
-        last_updated: "2021-04-21T07:01:48.387Z",
-        room_count: 14,
-        room_name: "somename",
-      },
+      
     };
   },
 };
