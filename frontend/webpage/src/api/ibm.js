@@ -24,6 +24,7 @@ export const ibmAPI = {
                   return response.json()
               }
               else {
+                  /* Something other than a 200 code received. */
                   return {error: "Connection error."}
             } 
           })
@@ -31,10 +32,12 @@ export const ibmAPI = {
               if (msg["rooms"]){
                 return msg["rooms"][0];
               }else{
+                  /* some error message (but a 200 http code) is received from the backend */
                   return {error: "Could not service the request."};
               }
           })
           .catch(()=> { return {
+              /* unforeseen issues will be caught here */
                 error: "Something went wrong."
             }
           })
