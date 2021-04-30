@@ -21,6 +21,7 @@
     <a class="search noselect" v-on:click="searchRoom">Search</a>
     <div>
       <RoomCount v-if="validLastSearchExists()" :roomInfo="getLastSearch" />
+      <!-- Complicated expression to deal with possible values of getLast search if it is not valid-->
       <div v-else>{{getLastSearch ? getLastSearch["error"] : false ||"Search not made yet."}}</div>
     </div>
   </div>
@@ -34,10 +35,14 @@ export default {
   },
   data: () => {
     return {
+      /* user input in search field */
       searchInput: "",
     };
   },
   methods: {
+    /**
+     * Check if a valid search result is present in the store.
+     */
     validLastSearchExists() {
       let searchResult = this.$store.getters.getSearchResult;
       if (searchResult == null || searchResult["error"]) {
@@ -46,6 +51,9 @@ export default {
         return true;
       }
     },
+    /**
+     * Check if any search results have been stored in the store.
+     */
     storedSearchResultsExists() {
       if (this.$store.getters.getStoredSearchResults.length > 0) {
         return true;
@@ -53,6 +61,9 @@ export default {
         return false;
       }
     },
+    /**
+     * Search for room count information with the user input in the search field.
+     */
     searchRoom() {
       console.log(
         "calling searchRoom with room name: " +
@@ -64,9 +75,15 @@ export default {
     },
   },
   computed: {
+    /**
+     * Fetches the last search.
+     */
     getLastSearch() {
       return this.$store.getters.getSearchResult;
     },
+    /**
+     * Fetches the stored search results.
+     */
     getStoredSearchResults() {
       return this.$store.getters.getStoredSearchResults;
     },
@@ -75,12 +92,15 @@ export default {
 </script>
 
 <style scoped>
+
+/* Search button styling */
 .search {
   text-decoration: none;
   background-color: var(--bc-yellow);
   color: var(--bc-blue);
   padding: 0.2em 1em;
 }
+/* Search button styling */
 .search:hover {
   cursor: pointer;
   color: var(--bc-blue);
