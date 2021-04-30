@@ -1,8 +1,6 @@
 
 const baseURL = "https://service.eu.apiconnect.ibmcloud.com/gws/apigateway/api/86245fabd6001646aa3167f3aaec32059fe9170e90e8fa6f6334f2020bd5b33b/bodycount";
 
-const fetch = require("node-fetch");
-
 /**
  *  Communication with API open to the backend on IBM Cloud.
  */
@@ -32,6 +30,7 @@ export const ibmAPI = {
               if (msg["rooms"]){
                 return msg["rooms"][0];
               }else{
+                  console.log(msg)
                   /* some error message (but a 200 http code) is received from the backend */
                   return {error: "Could not service the request."};
               }
