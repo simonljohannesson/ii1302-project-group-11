@@ -21,10 +21,10 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     /* color: #2c3e50; */
-    color: var(--bc-light-turquoise);
+    color: var(--bc-blue);
     height: 100vh;
     width: 100vw;
-    background-color: var(--bc-blue);
+    background-color: var(--bc-light-turquoise);
     
 }
 .mainContent {
@@ -51,7 +51,7 @@ export default {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: var(--bc-turquoise);
+    background-color: var(--bc-blue);
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
@@ -61,14 +61,14 @@ export default {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: var(--bc-blue);
+    color: var(--bc-light-turquoise);
     display: block;
 }
 
 /* Hover effect */
 .toolbar a:hover {
-    background-color: var(--bc-blue);
-    color: var(--bc-turquoise);
+    background-color: var(--bc-turquoise);
+    color: var(--bc-blue);
     /* color: #f1f1f1; */
 }
 
