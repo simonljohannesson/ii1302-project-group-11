@@ -31,7 +31,7 @@ export const ibmAPI = {
               if (msg["rooms"]){
                 return msg["rooms"][0];
               }else{
-                  return msg;
+                  return {error: "Could not service the request."};
               }
           })
           .catch(()=> { return {
