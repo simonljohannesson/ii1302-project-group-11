@@ -36,11 +36,14 @@ export default {
       if (!time) return "No time available";
       time = new Date(time);
       let y = time.getFullYear();
-      let M = time.getMonth();
-      let d = time.getDay();
-      let h = time.getHours();
-      let m = time.getMinutes();
-      let s = time.getSeconds();
+      /* Format number to be on format XX. */
+      const addZero = (number) => number < 10 ? "0" + number : number;
+
+      let M = addZero(time.getMonth());
+      let d = addZero(time.getDay());
+      let h = addZero(time.getHours());
+      let m = addZero(time.getMinutes());
+      let s = addZero(time.getSeconds());
       return `${y}-${M}-${d} ${h}:${m}:${s}`;
     },
   },
@@ -59,5 +62,6 @@ export default {
   border-radius: 15px;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
+  padding: 5px;
 }
 </style>
