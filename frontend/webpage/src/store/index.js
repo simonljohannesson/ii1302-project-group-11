@@ -47,9 +47,6 @@ export const actions = {
       .then((data => {
         context.commit("setSearchResult", data)
       }))
-  },
-  TEST(context, exampleSearch){
-    context.commit("setSearchResult", exampleSearch)
   }
 };
 
