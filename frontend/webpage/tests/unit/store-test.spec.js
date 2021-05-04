@@ -14,14 +14,6 @@ test("test mutate setSearchResult", ()=>{
     expect(mock_store.searchResult).toStrictEqual(info)
 });
 
-test("test action TEST", ()=>{
-    const info = {last_updated: "mm", room_count: "nn", room_name: "ss"}
-    const commit = jest.fn()
-    actions.TEST({commit}, info)
-    
-    expect(commit).toHaveBeenCalledWith("setSearchResult", info)
-});
-
 // Unable to get test to work as intended.
 //
 // test("test action SEARCH_ROOM_COUNT", ()=> {
