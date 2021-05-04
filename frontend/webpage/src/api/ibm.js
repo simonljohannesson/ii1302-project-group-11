@@ -30,7 +30,6 @@ export const ibmAPI = {
               if (msg["rooms"]){
                 return msg["rooms"][0];
               }else{
-                  console.log(msg)
                   /* some error message (but a 200 http code) is received from the backend */
                   return {error: "Could not service the request."};
               }
