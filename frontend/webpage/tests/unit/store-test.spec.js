@@ -2,13 +2,13 @@ import { mutations, actions } from '../../src/store'
 // import { startMirage } from "../../src/mirage"
 
 
-test("test mutate setSearchResult", ()=>{
+test("test mutate setSearchResult", () => {
     let mock_store = {
         userName: "someadmin",
         searchResult: null,
         storedSearchResults: []
     };
-    const info = {last_updated: "mm", room_count: "nn", room_name: "ss"};
+    const info = { last_updated: "mm", room_count: "nn", room_name: "ss" };
     mutations.setSearchResult(mock_store, info);
 
     expect(mock_store.searchResult).toStrictEqual(info)
@@ -17,7 +17,7 @@ test("test mutate setSearchResult", ()=>{
 // Unable to get test to work as intended.
 //
 // test("test action SEARCH_ROOM_COUNT", ()=> {
-    
+
 //     const commit = jest.fn()
 
 //     // let server = startMirage({ environment: "test" })
