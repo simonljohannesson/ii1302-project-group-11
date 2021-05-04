@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/searchroom',
-    name: 'SearchRoom',
+    name: 'Search Room',
     component: SearchRoom
   }
 ]
