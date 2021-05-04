@@ -5,6 +5,7 @@
         </router-link>
         <ToolbarItem link="Home" iconClass="fa fa-home" />
         <ToolbarItem link="About" iconClass="fa fa-info" />
+        <ToolbarItem link="Login" iconClass="fa fa-login" />
     </div>
 </template>
 <script>
