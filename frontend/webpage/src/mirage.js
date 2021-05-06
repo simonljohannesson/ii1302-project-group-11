@@ -49,7 +49,8 @@ export function startMirage({ environment = "development" } = {}) {
             
             // Check if params are supplied
             if(!room_name || !user_name) {
-                return new Response(400, { Headers: 'Mirage mocking server' }, {error: "Faulty query params!"})
+                return {error: "Faulty query params!"}
+                // return new Response(400, { Headers: 'Mirage mocking server' }, {error: "Faulty query params!"})
             }
             return schema.rooms.all();
         })
