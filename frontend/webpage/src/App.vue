@@ -1,17 +1,35 @@
 <template>
-    <div class="toolbar">
-        <Toolbar />
-    </div>
-    <div class="mainContent">
-        <router-view />
+    <div>
+        <div v-if="isLoggedIn()">
+            <div class="toolbar">
+                <Toolbar />
+            </div>
+            <div class="mainContent">
+                <router-view />
+            </div>
+        </div>
+        <div v-else>
+            <!-- <router-view /> -->
+            <Login/>
+        </div>
     </div>
 </template>
 <script>
 import Toolbar from "@/components/Toolbar.vue";
+import Login from "@/views/Login.vue";
 export default {
     components: {
         Toolbar,
+        Login,
     },
+    methods: {
+        isLoggedIn() {
+            let user = this.$store.getters.getLoginToken;
+            console.log("is logged in? " + user);
+            // console.log(this.$store.getters.getLoginStatus);
+            return user;
+        }
+    }
 };
 </script>
 <style>
