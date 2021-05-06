@@ -1,5 +1,5 @@
 <template>
-  <div class="login" style="background:#fbe8a6">
+  <div class="login">
     <h1>Login</h1>
     <h2>Please sign in</h2>
     <button class ="button button" v-on:click="signin">Sign in</button>
