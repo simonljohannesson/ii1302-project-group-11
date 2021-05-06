@@ -24,10 +24,7 @@ export default {
     },
     methods: {
         isLoggedIn() {
-            let user = this.$store.getters.getLoginToken;
-            console.log("is logged in? " + user);
-            // console.log(this.$store.getters.getLoginStatus);
-            return user;
+            return this.$store.getters.getLoginToken;
         }
     }
 };
