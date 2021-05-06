@@ -6,6 +6,8 @@
         <ToolbarItem link="Home" iconClass="fa fa-home" />
         <ToolbarItem link="About" iconClass="fa fa-info" />
         <ToolbarItem link="Login" iconClass="fa fa-login" />
+        <ToolbarItem link="Search Room" iconClass="fa fa-search"/>
+
     </div>
 </template>
 <script>

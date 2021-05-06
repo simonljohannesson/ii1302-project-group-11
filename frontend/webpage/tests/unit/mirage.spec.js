@@ -21,9 +21,10 @@ test('Faulty request to /room_count', async() => {
         method: 'get',
 
     }).then((res) => {
+        res.json().then(x=>expect(x).toStrictEqual({error: 'Faulty query params!'}))
         resCode = res.status;
     })
-    expect(resCode).toBe(400);
+    expect(resCode).toBe(200);
 })
 test('Correct request', async() => {
     let resCode;
@@ -41,9 +42,10 @@ test('Missing room_name param', async() => {
         method: 'get',
 
     }).then((res) => {
+        res.json().then(x=>expect(x).toStrictEqual({error: 'Faulty query params!'}))
         resCode = res.status;
     })
-    expect(resCode).toBe(400);
+    expect(resCode).toBe(200);
 })
 test('Missing user_name param', async() => {
     let resCode;
@@ -51,7 +53,8 @@ test('Missing user_name param', async() => {
         method: 'get',
 
     }).then((res) => {
+        res.json().then(x=>expect(x).toStrictEqual({error: 'Faulty query params!'}))
         resCode = res.status;
     })
-    expect(resCode).toBe(400);
+    expect(resCode).toBe(200);
 })

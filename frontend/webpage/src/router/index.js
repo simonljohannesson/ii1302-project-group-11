@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Welcome from '../views/Welcome.vue'
 import Login from '../views/Login.vue'
+import SearchRoom from '../views/SearchRoom.vue'
 
 const routes = [
   {
@@ -24,13 +25,18 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+      path: '/searchroom',
+      name: 'Search Room',
+      component: SearchRoom
   }
 ]
 
 const router = createRouter({
-  mode: 'history',
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+    mode: 'history',
+    history: createWebHistory(process.env.BASE_URL),
+    routes
 })
 
 export default router
