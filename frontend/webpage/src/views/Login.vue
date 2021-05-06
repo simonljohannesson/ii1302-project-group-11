@@ -7,11 +7,10 @@
 </template>
 
 <script>
-import {appID} from "../main.js"
 export default {
   methods: {
     signin(){
-      const tokens = appID.signin();
+      this.$store.dispatch('LOGIN_USER');
     }   
   }
 }
