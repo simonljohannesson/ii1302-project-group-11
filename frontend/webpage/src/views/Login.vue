@@ -1,8 +1,8 @@
 <template>
-  <div class="login">
-    <h1>This is a protected page</h1>
-    <h2>hello: {{ hello }}</h2>
-    <button v-on:click="signin">ButtonHello</button>
+  <div class="login" style="background:#fbe8a6">
+    <h1>Login</h1>
+    <h2>Please sign in</h2>
+    <button class ="button button" v-on:click="signin">Sign in</button>
   </div>
 </template>
 
@@ -16,3 +16,21 @@ export default {
   }
 }
 </script>
+<style scoped>
+.background {
+  background-color: #fbe8a6;
+}
+.button {
+    background-color: #303c6c;
+    border: none;
+     border-radius: 15px;
+    color: #87888d;
+    padding: 14px 40px;
+    cursor: pointer;
+    font-family: "Times New Roman";
+    }
+
+.button:hover {
+  background-color: #465386;
+  }
+</style>
