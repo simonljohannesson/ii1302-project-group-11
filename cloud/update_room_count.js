@@ -80,7 +80,7 @@ async function main(input) {
 }
 
 
-main(input)
-.then(x=> console.log(x)).catch(x=>console.log(x))
+// main(input)
+// .then(x=> console.log(x)).catch(x=>console.log(x))
 
 
