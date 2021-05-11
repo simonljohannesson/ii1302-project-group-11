@@ -8,17 +8,17 @@
 Document structure for ``room`` (under ``"doc":``):
 
     {
-        "_id": ...,
-        "_rev" ...,
+        "_id": "room-name",
+        "_rev" auto-generated-by-couchdb,
 
         "created_at": "2021-04-15T15:22:46.516Z",
-        "room_name": "unique-identifier",
+        "room_name": "user-specific-name-for-room",
         "id_users_admin": ["unique-identifier", ...],
         "room_public": "true|false",
         "room_visible_to":["unique-identifier", ...],
         "id_iot_devices": [
-            "unique-database-id-1",
-            "unique-databse-id-2"
+            "IOT-Device-ID1",
+            "IOT-Device-ID2"
         ],
         "room_count": "integer-value",
         "id_room_statistics": ...,
@@ -72,13 +72,13 @@ Document structure ``user``:
 Document structure ``IOT-devices``:
 
     {
-        "_id": ...,
-        "_rev" ...,
+        "_id": "generated-by-node-red",
+        "_rev" auto-generated-by-couchdb,
 
-        "device_name":unique-id,
+        "device_name":"custom-name-can-be-set-by-user",
         "id_room":[
             {
-                id:..., 
+                id:"room-name", 
                 direction:in/out
             },
              ...]
