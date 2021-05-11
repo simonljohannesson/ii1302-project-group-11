@@ -204,3 +204,49 @@ or:
     }
 
 ---
+## IBM IOT Platform
+### How devices works 
+A *device type* on the platform can be seen as a type of sensor. For example a *device* could be a `temperature` sensor or a `revolutionaryNewSensingUnit`. You can then assign real devices to the *device type*. Each instance of the device is then given a unique *Device ID* which is how we can identify each sensor. When creating a new device we specify which type of sensor it is, for example `temperature` and giving it the unique id of `coolTemperatureSensor-1` or whatever we want. This will then open up a device which we can post and read data from using MQTT. IOT Platform will generate something like this for the example device:
+```
+Organization ID: f35rw3
+Device Type: temperature
+Device ID: coolTemperatureSensor-1
+Authentication Method: use-token-auth
+Authentication Token: "Device unique token will be generated here"
+```
+When posting to this specific sensor with MQTT we use `Authentication Method` as user name, and `Authentication Token` as password. 
+
+---
+## Sending MQTT via console
+You can use the `mosquitto_pub` terminal client to send commands.
+### Commands
+Send sample data to mqtt server of device type `device` with device id `d1` 
+
+``` 
+mosquitto_pub -h f35rw3.messaging.internetofthings.ibmcloud.com -p 8883 -u use-token-auth -P 'Authentication Token' -i 'd:f35rw3:device:d1' -t 'iot-2/evt/1/fmt/JSON' -m '{"Send":"your data here, doesn't need to be JSON"}' 
+```
+---
+## MQTT Messaging in this project
+### Publishing to IOT Platform 
+All data sent to the IOT Platform should be sent to this **MQTT topic** ``` iot-2/evt/1/fmt/JSON```. With this **host** ``` f35rw3.messaging.internetofthings.ibmcloud.com ``` on **port** ``` 8883```.
+
+### Data design
+The data sent to the IOT Platform should be structured in the following way. The most important key-value-pair to **NOT** alter is ```{"type":"increment|decrement"}```, other data can be added below. Like this:
+```
+{
+    "type":"increment|decrement",
+    "someOtherData":123,
+    "pointlessInformation":"This just used more data becuase we can!"
+}
+```
+### Important note about sending data
+The JSON data itself might need to be surounded by quotes or ticks, this depends on how the MQTT library is implemented. for example in `mosquitto_pub` this is the result:
+#### This will work
+```
+'{"data":"whoooooo"}'
+```
+#### This wont work 
+```
+{"data":"whoooooo"}
+```
+This has to do with how the specific MQTT implementation decides to interpret given inputs, so check this when it's time to send data. 
