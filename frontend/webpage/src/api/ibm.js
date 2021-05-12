@@ -40,5 +40,11 @@ export const ibmAPI = {
                     error: "Something went wrong."
                 }
             })
+    },
+    incrementRoomCount: () => {
+        console.log("Hejhej");
+    },
+    decrementRoomCount: () => {
+        console.log("Hejhej");
     }
 };

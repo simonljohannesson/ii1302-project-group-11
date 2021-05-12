@@ -52,6 +52,9 @@ export const actions = {
                 context.commit("setSearchResult", data)
             }))
     },
+    CHANGE_ROOM_COUNT(){
+        
+    },
     async LOGIN_USER(state){
         let token = null;
         try {
