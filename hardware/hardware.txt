@@ -1,0 +1,28 @@
+För att köra sensorn krävs denna kod:
+
+volatile uint16_t distance=0;
+VL53L0X.address=0x52;//0x29 IoT adress -> 8-bit i 0x?? format 7-bit requires move 1 bit;
+
+uint8_t tof_rev_id = VL53L0X_readReg(IDENTIFICATION_REVISION_ID);//Read the revision_ID of sensor, good first test for communication
+
+if(!VL53L0X_init(true)) Error_Handler();//run INIT - Check datasheet for all instances.
+
+VL53L0X_setTimeout(500);
+
+VL53L0X_startContinuous(0);//start reading sensor data -> set timeout period on 0ms
+
+HAL_Delay(5);//time buffer for settings to establish properly
+
+while (1)
+  {
+	  distance = VL53L0X_readRangeContinuousMillimeters();
+	  //distance = distance -55;// -55 is to compensate for error. Change or set it to zero to make it work for your sensor
+  }
+  
+  
+  
+Inställning för I2C:
+100 kHz Speed frequency
+7-Bit primary adress lenght
+
+Alternate Function open drain & pull up för GPIO pin som kör SCL / SDA
