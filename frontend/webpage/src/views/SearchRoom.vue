@@ -22,6 +22,15 @@
             @keyup.enter="searchRoom"
         />
         <a class="search noselect" v-on:click="searchRoom">Search</a>
+
+        <div>
+            <button v-on:click="increment">Increment</button>
+            <button v-on:click="decrement">Decrement</button>
+            <h2>{{newCountInput}}</h2>
+            <button v-on:click="applyAllChanges">Apply Changes</button>
+        </div>
+        
+
         <div>
             <RoomCount
                 v-if="validLastSearchExists()"
@@ -36,6 +45,7 @@
                 }}
             </div>
         </div>
+        
     </div>
 </template>
 
@@ -49,6 +59,7 @@ export default {
         return {
             /* user input in search field */
             searchInput: "",
+            newCountInput: 0,
         };
     },
     methods: {
@@ -78,6 +89,22 @@ export default {
          */
         searchRoom() {
             this.$store.dispatch("SEARCH_ROOM_COUNT", this.searchInput);
+        },
+        updateRoom() {
+            console.log("updateroom_"+this.newCountInput);
+            
+            var arg = {count: this.newCountInput, room: this.searchInput}
+            this.$store.dispatch("UPDATE_ROOM_COUNT", arg);
+        },
+        applyAllChanges() {
+            console.log("applyallchanges_"+this.newCountInput);
+            this.updateRoom();
+        },
+        increment() {
+            this.newCountInput +=1
+        },
+        decrement() {
+            this.newCountInput -= 1 
         },
     },
     computed: {

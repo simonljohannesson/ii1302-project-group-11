@@ -1,8 +1,11 @@
 <template >
-    <div class="container">
+    <div class="container" id="vue-counter">
         <div>Room name: {{ roomName }}</div>
         <div>Room count: {{ roomCount }}</div>
         <div>Last updated: {{ lastUpdated }}</div>
+        <div>Updated</div>
+        
+        
     </div>
 </template>
 <script>
@@ -48,8 +51,13 @@ export default {
         },
     },
     data: () => {
-        return {};
+        return {
+            count: 0
+        };
     },
+    methods: {
+    
+    }
 };
 </script>
 <style scoped>
@@ -61,5 +69,12 @@ export default {
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
     padding: 5px;
+}
+.container div {
+  background-color: #fbe8a6;
+  border: 1px solid #eed08f;
+  text-align: left;
+  font-size: 20px;
+  border-radius: 5px;
 }
 </style>
