@@ -6,7 +6,7 @@ const state = {
       user identifyer, currently used when making api calls for the room count 
       should not be hard coded
     */
-    userName: "someadmin",
+    userName: "kurt",
     /* information about rooms */
     searchResult: null,
     /* Array with search results of the object with the format:
