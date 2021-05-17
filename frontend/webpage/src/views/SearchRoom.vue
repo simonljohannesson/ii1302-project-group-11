@@ -24,8 +24,9 @@
         <a class="search noselect" v-on:click="searchRoom">Search</a>
 
         <div>
-            <button v-on:click="increment">Increment</button>
+            <h3>Add/Remove people in Room Count</h3>
             <button v-on:click="decrement">Decrement</button>
+            <button v-on:click="increment">Increment</button>
             <h2>{{newCountInput}}</h2>
             <button v-on:click="applyAllChanges">Apply Changes</button>
         </div>
@@ -56,6 +57,7 @@ export default {
         RoomCount,
     },
     data: () => {
+         console.log("AHHH"+RoomCount);
         return {
             /* user input in search field */
             searchInput: "",
@@ -67,6 +69,7 @@ export default {
          * Check if a valid search result is present in the store.
          */
         validLastSearchExists() {
+            console.log("validatesearch");
             let searchResult = this.$store.getters.getSearchResult;
             if (searchResult == null || searchResult["error"]) {
                 return false;
@@ -88,9 +91,11 @@ export default {
          * Search for room count information with the user input in the search field.
          */
         searchRoom() {
+            console.log("searchroom --> " + RoomCount.room_count);
             this.$store.dispatch("SEARCH_ROOM_COUNT", this.searchInput);
         },
         updateRoom() {
+            console.log(RoomCount);
             console.log("updateroom_"+this.newCountInput);
             
             var arg = {count: this.newCountInput, room: this.searchInput}
