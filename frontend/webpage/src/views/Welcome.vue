@@ -16,11 +16,16 @@
             blanditiis. Earum doloremque expedita accusamus maxime ex, excepturi
             repellendus dolorum officiis ullam, a consectetur vel libero ab?
         </p>
+        <RoomStat/>
     </div>
 </template>
 <script>
+import RoomStat from '@/components//RoomStat.vue'
 export default {
     name: "Welcome",
+    components: {
+        RoomStat
+    },
 };
 </script>
 <style>
