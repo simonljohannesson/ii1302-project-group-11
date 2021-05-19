@@ -60,7 +60,7 @@ export default {
 <style scoped>
 .container {
     width: fit-content;
-    background-color: #f4976c;
+    background-color: #303c6c84;
     height: fit-content;
     border-radius: 15px;
     -moz-border-radius: 15px;

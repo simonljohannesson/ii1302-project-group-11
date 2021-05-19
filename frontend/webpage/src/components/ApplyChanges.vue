@@ -1,10 +1,10 @@
 <template >
     <div class="container" id="vue-counter">
-        <h3>Add/Remove people in Room Count</h3>
-        <button v-on:click="decrement">Decrement</button>
-        <button v-on:click="increment">Increment</button>
+        <h3>       Add/Remove people       </h3>
+        <button class="button noselect" v-on:click="decrement">"-"Decrement</button>
+        <button class="button noselect" v-on:click="increment">"+"Increment</button>
         <h2>{{newCountInput}}</h2>
-        <button v-on:click="updateRoom">Apply Changes</button>
+        <button class="button noselect" v-on:click="updateRoom">Apply Changes</button>
         
     </div>
 </template>
@@ -46,7 +46,7 @@ export default {
 <style scoped>
 .container {
     width: fit-content;
-    background-color: #f4976c;
+    background-color: #303c6c84;
     height: fit-content;
     border-radius: 15px;
     -moz-border-radius: 15px;
@@ -59,5 +59,17 @@ export default {
   text-align: left;
   font-size: 20px;
   border-radius: 5px;
+}
+.button {
+    text-decoration: none;
+    background-color: var(--bc-yellow);
+    color: var(--bc-blue);
+    padding: 0.2em 1em;
+}
+/* Search button styling */
+.button:hover {
+    cursor: pointer;
+    color: var(--bc-blue);
+    background-color: var(--bc-orange);
 }
 </style>
