@@ -10,7 +10,23 @@
                         :key="item.room_name"
                     >
                         <RoomCount :roomInfo="item" />
+                       
                     </span>
+                    
+                </div>
+                <span v-else>No search results stored.</span>
+                <span></span>
+            </div>
+            <div>
+                <div v-if="applyAllChanges">
+                    <span
+                        v-for="item in applyAllChanges"
+                        :key="item.room_name"
+                    >
+                        <ApplyChanges :roomInfo="item" />
+                       
+                    </span>
+                    
                 </div>
                 <span v-else>No search results stored.</span>
                 <span></span>
@@ -24,16 +40,11 @@
         <a class="search noselect" v-on:click="searchRoom">Search</a>
 
         <div>
-            <h3>Add/Remove people in Room Count</h3>
-            <button v-on:click="decrement">Decrement</button>
-            <button v-on:click="increment">Increment</button>
-            <h2>{{newCountInput}}</h2>
-            <button v-on:click="applyAllChanges">Apply Changes</button>
-        </div>
-        
-
-        <div>
             <RoomCount
+                v-if="validLastSearchExists()"
+                :roomInfo="getLastSearch"
+            />
+              <ApplyChanges
                 v-if="validLastSearchExists()"
                 :roomInfo="getLastSearch"
             />
@@ -52,9 +63,12 @@
 
 <script>
 import RoomCount from "@/components/RoomCount.vue";
+import ApplyChanges from "@/components/ApplyChanges.vue";
+
 export default {
     components: {
         RoomCount,
+        ApplyChanges,
     },
     data: () => {
          console.log("AHHH"+RoomCount);
@@ -91,25 +105,8 @@ export default {
          * Search for room count information with the user input in the search field.
          */
         searchRoom() {
-            console.log("searchroom --> " + RoomCount.room_count);
+            console.log("searchroom -->" + RoomCount.room_count);
             this.$store.dispatch("SEARCH_ROOM_COUNT", this.searchInput);
-        },
-        updateRoom() {
-            console.log(RoomCount);
-            console.log("updateroom_"+this.newCountInput);
-            
-            var arg = {count: this.newCountInput, room: this.searchInput}
-            this.$store.dispatch("UPDATE_ROOM_COUNT", arg);
-        },
-        applyAllChanges() {
-            console.log("applyallchanges_"+this.newCountInput);
-            this.updateRoom();
-        },
-        increment() {
-            this.newCountInput +=1
-        },
-        decrement() {
-            this.newCountInput -= 1 
         },
     },
     computed: {

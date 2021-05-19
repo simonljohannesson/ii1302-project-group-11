@@ -4,8 +4,6 @@
         <div>Room count: {{ roomCount }}</div>
         <div>Last updated: {{ lastUpdated }}</div>
         <div>Updated</div>
-        
-        
     </div>
 </template>
 <script>
@@ -52,11 +50,10 @@ export default {
     },
     data: () => {
         return {
-            count: 0
+            newCountInput: 0
         };
     },
     methods: {
-    
     }
 };
 </script>
