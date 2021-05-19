@@ -52,7 +52,12 @@ export function startMirage({ environment = "development" } = {}) {
                 return {error: "Faulty query params!"}
                 // return new Response(400, { Headers: 'Mirage mocking server' }, {error: "Faulty query params!"})
             }
-            return schema.rooms.all();
+
+            return {
+                    "last_updated": new Date(Math.floor(Math.random()*1000000000) + 1000000000000),
+                    "room_count": Math.floor(Math.random() * 10) + 1,
+                    "room_name": "Mirage room " + Math.floor(Math.random() * 10) + 1
+            };
         })
     },
   })
