@@ -42,26 +42,23 @@ export const ibmAPI = {
             })
     },
     updateRoomCount: (roomName, admin, newCountValue) => {
-        console.log("IBMjs" + newCountValue);
         //newCountValue = 15;
         const path = "/update_room_count" + "?admin=" + admin + "&room_name=" + roomName + "&new_count_value=" + newCountValue
-        console.log("IBM_path"+ path);
         let options = {
             method: "GET"
         }
         return fetch(baseURL + path, options)
             .then((response) => {
                 if (response.ok) {
-                    console.log("IBM_if");
                     return response.json()
                 }
                 else {
-                    console.log("IBM_else" + newCountValue);
+
                     return { error: "Connection error." }
                 }
             })
             .catch((e) => {
-                console.log("IBM_catch: " + e);
+
                 return {
                     
                     error: "Something went wrong."
