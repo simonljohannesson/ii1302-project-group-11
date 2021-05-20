@@ -82,7 +82,6 @@ export default {
          * Check if a valid search result is present in the store.
          */
         validLastSearchExists() {
-            console.log("validatesearch");
             let searchResult = this.$store.getters.getSearchResult;
             if (searchResult == null || searchResult["error"]) {
                 return false;
