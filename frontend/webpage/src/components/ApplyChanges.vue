@@ -23,8 +23,6 @@ export default {
     },
     methods: {
         updateRoom() {
-            //console.log(RoomCount);
-            //console.log("updateroom_"+this.newCountInput);
             var newCount = parseInt(this.roomInfo["room_count"]) + this.newCountInput;
             var arg = {count: newCount, room: this.$parent.searchInput}
             this.$parent.$store.dispatch("UPDATE_ROOM_COUNT", arg);
@@ -36,7 +34,6 @@ export default {
             this.newCountInput -= 1 
         },
         applyAllChanges() {
-            console.log("applyallchanges_"+this.newCountInput);
             this.updateRoom();
         },
     
