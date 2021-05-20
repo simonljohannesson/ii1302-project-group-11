@@ -40,5 +40,29 @@ export const ibmAPI = {
                     error: "Something went wrong."
                 }
             })
+    },
+    updateRoomCount: (roomName, admin, newCountValue) => {
+        //newCountValue = 15;
+        const path = "/update_room_count" + "?admin=" + admin + "&room_name=" + roomName + "&new_count_value=" + newCountValue
+        let options = {
+            method: "GET"
+        }
+        return fetch(baseURL + path, options)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+
+                    return { error: "Connection error." }
+                }
+            })
+            .catch((e) => {
+
+                return {
+                    
+                    error: "Something went wrong."
+                }
+            })
     }
 };

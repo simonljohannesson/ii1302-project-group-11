@@ -6,7 +6,7 @@ const state = {
       user identifyer, currently used when making api calls for the room count 
       should not be hard coded
     */
-    userName: "someadmin",
+    userName: "kurt",
     /* information about rooms */
     searchResult: null,
     /* Array with search results of the object with the format:
@@ -52,6 +52,10 @@ export const actions = {
                 context.commit("setSearchResult", data)
             }))
     },
+    UPDATE_ROOM_COUNT(context,arg) {
+        //get roomcount somehow and add to arg.count in call to ibmAPI.updateRoomCount
+        ibmAPI.updateRoomCount(arg.room, context.state.userName, arg.count)
+    },    
     async LOGIN_USER(state){
         let token = null;
         try {

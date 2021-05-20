@@ -10,7 +10,23 @@
                         :key="item.room_name"
                     >
                         <RoomCount :roomInfo="item" />
+                       
                     </span>
+                    
+                </div>
+                <span v-else>No search results stored.</span>
+                <span></span>
+            </div>
+            <div>
+                <div v-if="applyAllChanges">
+                    <span
+                        v-for="item in applyAllChanges"
+                        :key="item.room_name"
+                    >
+                        <ApplyChanges :roomInfo="item" />
+                       
+                    </span>
+                    
                 </div>
                 <span v-else>No search results stored.</span>
                 <span></span>
@@ -22,8 +38,13 @@
             @keyup.enter="searchRoom"
         />
         <a class="search noselect" v-on:click="searchRoom">Search</a>
+
         <div>
             <RoomCount
+                v-if="validLastSearchExists()"
+                :roomInfo="getLastSearch"
+            />
+              <ApplyChanges
                 v-if="validLastSearchExists()"
                 :roomInfo="getLastSearch"
             />
@@ -36,19 +57,24 @@
                 }}
             </div>
         </div>
+        
     </div>
 </template>
 
 <script>
 import RoomCount from "@/components/RoomCount.vue";
+import ApplyChanges from "@/components/ApplyChanges.vue";
+
 export default {
     components: {
         RoomCount,
+        ApplyChanges,
     },
     data: () => {
         return {
             /* user input in search field */
             searchInput: "",
+            newCountInput: 0,
         };
     },
     methods: {
