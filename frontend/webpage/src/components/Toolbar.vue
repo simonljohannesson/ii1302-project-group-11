@@ -24,6 +24,7 @@ export default {
     methods: {
         logout(){
             this.$store.dispatch('LOGOUT_USER');
+            this.$router.push({name: 'Login'});
         }
     },
     created() {
