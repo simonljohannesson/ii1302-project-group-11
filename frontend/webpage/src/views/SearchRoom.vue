@@ -71,7 +71,6 @@ export default {
         ApplyChanges,
     },
     data: () => {
-         console.log("AHHH"+RoomCount);
         return {
             /* user input in search field */
             searchInput: "",
