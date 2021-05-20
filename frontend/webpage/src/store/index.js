@@ -53,7 +53,6 @@ export const actions = {
             }))
     },
     UPDATE_ROOM_COUNT(context,arg) {
-        console.log("UPD_ROOM_CNT" + arg.count);
         //get roomcount somehow and add to arg.count in call to ibmAPI.updateRoomCount
         ibmAPI.updateRoomCount(arg.room, context.state.userName, arg.count)
     },    
