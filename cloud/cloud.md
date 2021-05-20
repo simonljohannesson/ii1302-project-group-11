@@ -21,29 +21,28 @@ Document structure for ``room`` (under ``"doc":``):
             "IOT-Device-ID2"
         ],
         "room_count": "integer-value",
-        "id_room_statistics": ...,
+        "id_room_statistics": room-name-statistics
         "last_updated": date/time
     }
+
+`id_room_statistics` should be named by concatinating `_id` followed by `-statistics` for example a room named **hall** should have `id_room_statistics` set to **hall-statistics**.
 
 Document structure ``room_statistics``:
 
     {
-        "_id": ...,
+        "_id": room-followed-by-statistics ex. (testroom-statistics)
         "_rev" ...,
         
         "statistics": {
-            "diagram-values": [
-                "Monday 08:00": "average-count",
-                "Monday 09:00": "average-count",
-                "Monday 10:00": "average-count",
-                .
-                .
-                .
-            ],
-            "raw-data":[
-                "date-and-time": "count",
-                "date-and-time": "count",
-                "date-and-time": "count",
+            "raw":[
+                {
+                    "time": date-and-time,
+                    "count": integer-value
+                },
+                {
+                    "time": date-and-time,
+                    "count": integer-value
+                }
                 .
                 .
                 .
@@ -51,10 +50,7 @@ Document structure ``room_statistics``:
         }
     }
     
-
-To collect data an action could be run a few times per hour and save the current count at each room and store the value in the ``raw-data`` list together with the date and time of the collection.
-
-To generate the ``diagram-values`` an action could be run a few times per day (or week) which would calculate the average values that are of interest in the diagram.
+Only raw data from rom is aggregated which can be manipulated in the frontend `_id` need to follow the naming schema "roomName-statistics" for example if there is a room named **toilet** the statistics document should be named **toilet-statistics**. This document should be created upon room creation!
 
 
 Document structure ``user``:

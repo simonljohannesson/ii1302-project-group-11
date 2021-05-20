@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { ibmAPI } from "../api/ibm.js"
-
+import { appID } from '../main'
 const state = {
     /* 
       user identifyer, currently used when making api calls for the room count 
@@ -16,13 +16,17 @@ const state = {
           room_name: 'somename1'
       }
     */
-    storedSearchResults: []
+    storedSearchResults: [],
+    loginToken: null,
 };
 
 export const mutations = {
     setSearchResult(state, roomInfo) {
         state.searchResult = roomInfo;
     },
+    setLoginToken(state, token){
+        state.loginToken = token;
+    }
 };
 
 export const actions = {
@@ -52,7 +56,18 @@ export const actions = {
         console.log("UPD_ROOM_CNT" + arg.count);
         //get roomcount somehow and add to arg.count in call to ibmAPI.updateRoomCount
         ibmAPI.updateRoomCount(arg.room, context.state.userName, arg.count)
-        
+    },    
+    async LOGIN_USER(state){
+        let token = null;
+        try {
+            token = await appID.signin();
+            state.commit('setLoginToken', token);
+        } catch (error) {
+            alert('Login popup closed')
+        }
+    },
+    LOGOUT_USER(state){
+        state.commit('setLoginToken', null);
     }
 };
 
@@ -65,6 +80,9 @@ export const getters = {
     },
     getUserName(state) {
         return state.userName;
+    },
+    getLoginToken(state){
+        return state.loginToken;
     }
 };
 
