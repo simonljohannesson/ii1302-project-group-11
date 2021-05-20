@@ -103,7 +103,6 @@ export default {
          * Search for room count information with the user input in the search field.
          */
         searchRoom() {
-            console.log("searchroom -->" + RoomCount.room_count);
             this.$store.dispatch("SEARCH_ROOM_COUNT", this.searchInput);
         },
     },
