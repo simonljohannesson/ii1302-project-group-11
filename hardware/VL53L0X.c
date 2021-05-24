@@ -1,8 +1,13 @@
-/*
- * VL53L0X.c
- *
- *  Created on: Apr 21, 2021
- *      Author: Trasan
+/**
+ ******************************************************************************
+ * @file           : VL53L0X.c
+ * @brief          : VL53L0X distance sensor
+ ******************************************************************************
+ * @author  Tobias Mesch
+ * @version 1.0
+ * @date    2021-05-20
+ * @brief   Functions and structures for reading sensor data output
+ ******************************************************************************
  */
 
 
@@ -46,7 +51,6 @@ static uint16_t VL53L0X_encodeTimeout(uint16_t timeout_mclks);
 static uint32_t VL53L0X_timeoutMclksToMicroseconds(uint16_t timeout_period_mclks, uint8_t vcsel_period_pclks);
 static uint32_t VL53L0X_timeoutMicrosecondsToMclks(uint32_t timeout_period_us, uint8_t vcsel_period_pclks);
 
-/* VALUES DEFINED BY TOBIAS */
 uint16_t ret=0;
 uint8_t dataBuffer[4];	//buffer to hold data inside
 
@@ -64,6 +68,13 @@ VL53L0X_VL53L0X(void)
  */
 // Public Methods //////////////////////////////////////////////////////////////
 
+
+/**
+ * @brief Set adress
+ * @param new_adrr This should be the new address to give the sensor
+ * @note Not yet developed and tested, connect proper pin to GPIO reset
+ * @retval None
+ */
 void VL53L0X_setAddress(uint8_t new_addr)
 {
 	VL53L0X_writeReg(I2C_SLAVE_DEVICE_ADDRESS, new_addr & 0x7F);
@@ -80,6 +91,26 @@ void VL53L0X_setAddress(uint8_t new_addr)
 // If io_2v8 (optional) is true or not given, the sensor is configured for 2V8
 // mode.
 
+/**
+ * @brief VL53L0X init
+ * @param io_2v8	True or false should tell if 1.8V or 2.8V is present at sensor
+ * @note This should give all initiation sequence for default configuration
+ *
+ * According to documentations from STmicroelectronics https://www.st.com/resource/en/user_manual/dm00279088-world-smallest-timeofflight-ranging-and-gesture-detection-sensor-application-programming-interface-stmicroelectronics.pdf
+ * Following sequence should be:
+ * Datainit()
+ * Staticinit()
+ * PerformReferenceSPADManagement()
+ * PerformRefCalibration()
+ * --set white target--
+ * PerformOffsetCalibration()
+ * --set grey target--
+ * PerformXTalkCalibration()
+ *
+ * Each part is shown by comment //Datainit() begin// Datainit() end//
+ *
+ * @retval None
+ */
 bool VL53L0X_init(bool io_2v8)
 {
 	// VL53L0X_DataInit() begin
@@ -304,8 +335,16 @@ bool VL53L0X_init(bool io_2v8)
 
 
 
-// Write an 8-bit register
-
+/**
+ * @brief	Write an 8-bit register
+ * @param	reg	What register should be addressed
+ * @param	value What value should the register receive
+ * @note	Write data to 8-bit register by I2C communication
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	None
+ */
 void VL53L0X_writeReg(uint8_t reg, uint8_t value)
 {
 	ret = HAL_I2C_Mem_Write(&hi2c3, VL53L0X.address, reg, 1, &value, 1, HAL_MAX_DELAY);//Transmit this value onto this register
@@ -316,8 +355,16 @@ void VL53L0X_writeReg(uint8_t reg, uint8_t value)
 }
 
 
-// Write a 16-bit register
-
+/**
+ * @brief	Write an 16-bit register
+ * @param	reg	What register should be addressed
+ * @param	value What value should the register receive
+ * @note	Write data to 16-bit register by I2C communication
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	None
+ */
 void VL53L0X_writeReg16Bit(uint8_t reg, uint16_t value)
 {
 	ret = HAL_I2C_Mem_Write(&hi2c3, VL53L0X.address, reg, 1, &value, 1, HAL_MAX_DELAY);//Transmit this value onto this register
@@ -328,8 +375,16 @@ void VL53L0X_writeReg16Bit(uint8_t reg, uint16_t value)
 }
 
 
-// Write a 32-bit register
-
+/**
+ * @brief	Write an 32-bit register
+ * @param	reg	What register should be addressed
+ * @param	value What value should the register receive
+ * @note	Write data to 32-bit register by I2C communication
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	None
+ */
 void VL53L0X_writeReg32Bit(uint8_t reg, uint32_t value)
 {
 	ret = HAL_I2C_Mem_Write(&hi2c3, VL53L0X.address, reg, 1, &value, 2, HAL_MAX_DELAY);//Transmit this value onto this register
@@ -340,8 +395,15 @@ void VL53L0X_writeReg32Bit(uint8_t reg, uint32_t value)
 }
 
 
-// Read an 8-bit register
-
+/**
+ * @brief	Read an 8-bit register
+ * @param	reg	What register should be addressed
+ * @note	Read data to 8-bit register by I2C communication
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	value - Given data from register
+ */
 uint8_t VL53L0X_readReg(uint8_t reg)
 {
 	uint8_t value = 0; //return value storage
@@ -357,8 +419,15 @@ uint8_t VL53L0X_readReg(uint8_t reg)
 }
 
 
-// Read an 16-bit register
-
+/**
+ * @brief	Read an 16-bit register
+ * @param	reg	What register should be addressed
+ * @note	Read data to 16-bit register by I2C communication
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	value - Given data from register
+ */
 uint16_t VL53L0X_readReg16Bit(uint8_t reg)
 {
 	uint16_t value = 0; //return value storage
@@ -373,8 +442,15 @@ uint16_t VL53L0X_readReg16Bit(uint8_t reg)
 }
 
 
-// Read a 32-bit register
-
+/**
+ * @brief	Read an 32-bit register
+ * @param	reg	What register should be addressed
+ * @note	Read data to 32-bit register by I2C communication
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	value - Given data from register
+ */
 uint32_t VL53L0X_readReg32Bit(uint8_t reg)
 {
 	uint32_t value = 0; //return value storage
@@ -389,9 +465,17 @@ uint32_t VL53L0X_readReg32Bit(uint8_t reg)
 }
 
 
-// Write an arbitrary number of bytes from the given array to the sensor,
-// starting at the given register
-
+/**
+ * @brief	Write arbitrary number of bytes to register
+ * @param	reg	What register should be addressed as starting point
+ * @param	src Array of data to transmit
+ * @param	count size of src
+ * @note	Writes arbitrary number of bytes from given array to the sensor, starting at the given register
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	value - Given data from register
+ */
 void VL53L0X_writeMulti(uint8_t reg, uint8_t const * src, uint8_t count)
 {
 	ret = HAL_I2C_Mem_Write(&hi2c3, VL53L0X.address, reg, 1, src, count, HAL_MAX_DELAY);//Transmit this value onto this register
@@ -402,9 +486,17 @@ void VL53L0X_writeMulti(uint8_t reg, uint8_t const * src, uint8_t count)
 }
 
 
-// Read an arbitrary number of bytes from the sensor, starting at the given
-// register, into the given array
-
+/**
+ * @brief	Read arbitrary number of bytes from register
+ * @param	reg	What register should be addressed as starting point
+ * @param	dst Buffer to store given data
+ * @param	count size of dst
+ * @note	Reads arbitrary number of bytes from the array to the sensor, starting at the given register, places data to given array
+ *
+ * If flag raised, start debug, something went bad
+ *
+ * @retval	none
+ */
 void VL53L0X_readMulti(uint8_t reg, uint8_t * dst, uint8_t count)
 {
 	ret = HAL_I2C_Mem_Read(&hi2c3, VL53L0X.address, reg,1,dst,count,HAL_MAX_DELAY);//Transmit - Retrieve data from this register
@@ -416,17 +508,21 @@ void VL53L0X_readMulti(uint8_t reg, uint8_t * dst, uint8_t count)
 	//no value return, values stored in array
 }
 
-
-
-// Set the return signal rate limit check value in units of MCPS (mega counts
-// per second). "This represents the amplitude of the signal reflected from the
-// target and detected by the device"; setting this limit presumably determines
-// the minimum measurement necessary for the sensor to report a valid reading.
-// Setting a lower limit increases the potential range of the sensor but also
-// seems to increase the likelihood of getting an inaccurate reading because of
-// unwanted reflections from objects other than the intended target.
-// Defaults to 0.25 MCPS as initialized by the ST API and this library.
-
+/**
+ * @brief	Set Signal Rate Limit
+ * @param	limit_Mcps	set limit value
+ * @note	Sets return signal rate limit check value in units of MCPS (mega counts per second).
+ *
+ * "This represents the amplitude of the signal reflected from the
+ * target and detected by the device"; setting this limit presumably determines
+ * the minimum measurement necessary for the sensor to report a valid reading.
+ * Setting a lower limit increases the potential range of the sensor but also
+ * seems to increase the likelihood of getting an inaccurate reading because of
+ * unwanted reflections from objects other than the intended target.
+ * Defaults to 0.25 MCPS as initialized by the ST API and this library.
+ *
+ * @retval	true | false - depends on successful limit
+ */
 bool VL53L0X_setSignalRateLimit(float limit_Mcps)
 {
 	if (limit_Mcps < 0 || limit_Mcps > 511.99) {
@@ -438,23 +534,31 @@ bool VL53L0X_setSignalRateLimit(float limit_Mcps)
 	return true;
 }
 
-
-
-// Get the return signal rate limit check value in MCPS
-
+/**
+ * @brief	Get Signal Rate Limit
+ * @note	Goes to register handling the float value of SRL and returns it
+ * @retval	float value from register holding SRL
+ */
 float VL53L0X_getSignalRateLimit(void)
 {
 	return(float) VL53L0X_readReg16Bit(FINAL_RANGE_CONFIG_MIN_COUNT_RATE_RTN_LIMIT) / (1 << 7);
 }
 
-// Set the measurement timing budget in microseconds, which is the time allowed
-// for one measurement; the ST API and this library take care of splitting the
-// timing budget among the sub-steps in the ranging sequence. A longer timing
-// budget allows for more accurate measurements. Increasing the budget by a
-// factor of N decreases the range measurement standard deviation by a factor of
-// sqrt(N). Defaults to about 33 milliseconds; the minimum is 20 ms.
-// based on VL53L0X_set_measurement_timing_budget_micro_seconds()
 
+/**
+ * @brief	Set Measurement Timing Budget
+ * @param	budges_us Set timing budget
+ * @note	Sets measurement timing budget in microseconds, which is the time allowed for one measurement.
+ *
+ * The ST API and this library take care of splitting the
+ * timing budget among the sub-steps in the ranging sequence. A longer timing
+ * budget allows for more accurate measurements. Increasing the budget by a
+ * factor of N decreases the range measurement standard deviation by a factor of
+ * sqrt(N). Defaults to about 33 milliseconds; the minimum is 20 ms.
+ * based on VL53L0X_set_measurement_timing_budget_micro_seconds()
+ *
+ * @retval	True | False If setting budget was successfull or not
+ */
 bool VL53L0X_setMeasurementTimingBudget(uint32_t budget_us)
 {
 	struct SequenceStepEnables enables;
@@ -535,10 +639,15 @@ bool VL53L0X_setMeasurementTimingBudget(uint32_t budget_us)
 	return true;
 }
 
-// Get the measurement timing budget in microseconds
-// based on VL53L0X_get_measurement_timing_budget_micro_seconds()
-// in us
-
+/**
+ * @brief	Get Measurement Timing Budget
+ * @note	Gets measurement timing budget.
+ *
+ * Get the measurement timing budget in microseconds
+ * based on VL53L0X_get_measurement_timing_budget_micro_seconds()
+ *
+ * @retval	budget_us Storing timing budget
+ */
 uint32_t VL53L0X_getMeasurementTimingBudget(void)
 {
 	struct SequenceStepEnables enables;
@@ -580,14 +689,24 @@ uint32_t VL53L0X_getMeasurementTimingBudget(void)
 	return budget_us;
 }
 
-// Set the VCSEL (vertical cavity surface emitting laser) pulse period for the
-// given period type (pre-range or final range) to the given value in PCLKs.
-// Longer periods seem to increase the potential range of the sensor.
-// Valid values are (even numbers only):
-//  pre:  12 to 18 (initialized default: 14)
-//  final: 8 to 14 (initialized default: 10)
-// based on VL53L0X_set_vcsel_pulse_period()
 
+/**
+ * @brief	Set Vcsel Pulse Period
+ * @param	type What kind of VcelPeriodType [prerange or longrange]
+ * @param	period_pclks set period clock
+ * @note	Sets the vertical cavity surface emitting laser pulse period.
+ *
+ *Set the VCSEL (vertical cavity surface emitting laser) pulse period for the
+ *given period type (pre-range or final range) to the given value in PCLKs.
+ *Longer periods seem to increase the potential range of the sensor.
+ *Valid values are (even numbers only):
+ *	pre:  12 to 18 (initialized default: 14)
+ *	final: 8 to 14 (initialized default: 10)
+ *based on VL53L0X_set_vcsel_pulse_period()
+ *
+ *
+ * @retval	True | False Successful function
+ */
 bool VL53L0X_setVcselPulsePeriod(enum vcselPeriodType type, uint8_t period_pclks)
 {
 	uint8_t vcsel_period_reg = (uint8_t) encodeVcselPeriod(period_pclks);
@@ -758,6 +877,16 @@ bool VL53L0X_setVcselPulsePeriod(enum vcselPeriodType type, uint8_t period_pclks
 // Get the VCSEL pulse period in PCLKs for the given period type.
 // based on VL53L0X_get_vcsel_pulse_period()
 
+
+/**
+ * @brief	Get Vcsel Pulse Period
+ * @param	type What kind of VcelPeriodType [prerange or longrange]
+ * @note	Get the VCSEL pulse period in PCLKs for the given period type.
+ *
+ * based on VL53L0X_get_vcsel_pulse_period()
+ *
+ * @retval	Returns VCSEL pulse period
+ */
 uint16_t VL53L0X_getVcselPulsePeriod(enum vcselPeriodType type)
 {
 	if (type == VcselPeriodPreRange) {
@@ -769,13 +898,21 @@ uint16_t VL53L0X_getVcselPulsePeriod(enum vcselPeriodType type)
 	}
 }
 
-// Start continuous ranging measurements. If period_ms (optional) is 0 or not
-// given, continuous back-to-back mode is used (the sensor takes measurements as
-// often as possible); otherwise, continuous timed mode is used, with the given
-// inter-measurement period in milliseconds determining how often the sensor
-// takes a measurement.
-// based on VL53L0X_StartMeasurement()
 
+/**
+ * @brief	Start continuous
+ * @param	period_ms period for sleepmode
+ * @note	Start continuous ranging measurements.
+ *
+ * If period_ms (optional) is 0 or not
+ * given, continuous back-to-back mode is used (the sensor takes measurements as
+ * often as possible); otherwise, continuous timed mode is used, with the given
+ * inter-measurement period in milliseconds determining how often the sensor
+ * takes a measurement.
+ * based on VL53L0X_StartMeasurement()
+ *
+ * @retval	none
+ */
 void VL53L0X_startContinuous(uint32_t period_ms)
 {
 	VL53L0X_writeReg(0x80, 0x01);
@@ -808,9 +945,15 @@ void VL53L0X_startContinuous(uint32_t period_ms)
 	}
 }
 
-// Stop continuous measurements
-// based on VL53L0X_StopMeasurement()
 
+/**
+ * @brief	Stop continuous
+ * @note	Stop continuous ranging measurements.
+ *
+ * baseed on VL53L0X_StopMeasurement()
+ *
+ * @retval	none
+ */
 void VL53L0X_stopContinuous(void)
 {
 	VL53L0X_writeReg(SYSRANGE_START, 0x01); // VL53L0X_REG_SYSRANGE_MODE_SINGLESHOT
@@ -822,10 +965,16 @@ void VL53L0X_stopContinuous(void)
 	VL53L0X_writeReg(0xFF, 0x00);
 }
 
-// Returns a range reading in millimeters when continuous mode is active
-// (readRangeSingleMillimeters() also calls this function after starting a
-// single-shot range measurement)
 
+/**
+ * @brief	Read Range Continuous Millimeters
+ * @note	Returns range reading in mm when continuous mode is active.
+ *
+ * readRangeSingleMillimeters()
+ * also calls this function after starting a single-shot range measurement)
+ *
+ * @retval	Returns range or timeout value
+ */
 uint16_t VL53L0X_readRangeContinuousMillimeters(void)
 {
 	startTimeout();
@@ -845,10 +994,15 @@ uint16_t VL53L0X_readRangeContinuousMillimeters(void)
 	return range;
 }
 
-// Performs a single-shot range measurement and returns the reading in
-// millimeters
-// based on VL53L0X_PerformSingleRangingMeasurement()
 
+/**
+ * @brief	Read Range Single Millimeters
+ * @note	Performs a one singe-shot measurement and returns the reading in millimeters
+ *
+ * based on VL53L0X_PerformSingleRangingMeasurement()
+ *
+ * @retval	Returns range or timeout value
+ */
 uint16_t VL53L0X_readRangeSingleMillimeters(void)
 {
 	VL53L0X_writeReg(0x80, 0x01);
@@ -873,9 +1027,13 @@ uint16_t VL53L0X_readRangeSingleMillimeters(void)
 	return VL53L0X_readRangeContinuousMillimeters();
 }
 
-// Did a timeout occur in one of the read functions since the last call to
-// timeoutOccurred()?
 
+/**
+ * @brief	Timeout Occurred
+ * @note	Did a timeout occur in one of the read functions since the last call to timeoutOuccured()?
+ *
+ * @retval	tmp True | False timeout flag
+ */
 bool VL53L0X_timeoutOccurred()
 {
 	bool tmp = VL53L0X.did_timeout;
@@ -885,10 +1043,16 @@ bool VL53L0X_timeoutOccurred()
 
 // Private Methods /////////////////////////////////////////////////////////////
 
-// Get reference SPAD (single photon avalanche diode) count and type
-// based on VL53L0X_get_info_from_device(),
-// but only gets reference SPAD count and type
-
+/**
+ * @brief	Get Spad Info
+ * @param	count spad_count address holder
+ * @param	type_is_aperture spad_type_is_aperture address holder
+ * @note	Get reference SPAD (single photon avalanche diode) count and type
+ *
+ * based on VL53L0X_get_info_from_device(), only grabbing reference SPAD count & type
+ *
+ * @retval	True | False Check if timeout occurred
+ */
 bool VL53L0X_getSpadInfo(uint8_t * count, bool * type_is_aperture)
 {
 	uint8_t tmp;
@@ -930,9 +1094,16 @@ bool VL53L0X_getSpadInfo(uint8_t * count, bool * type_is_aperture)
 	return true;
 }
 
-// Get sequence step enables
-// based on VL53L0X_GetSequenceStepEnables()
 
+/**
+ * @brief	Get Sequence Step Enables
+ * @param	enables Structure to hold values of {tcc, msrc, dss, pre_range, final_range}
+ * @note	Get reference SPAD (single photon avalanche diode) count and type
+ *
+ * based on VL53L0X_GetSequenceStepEnables()
+ *
+ * @retval	none
+ */
 void VL53L0X_getSequenceStepEnables(struct SequenceStepEnables * enables)
 {
 	uint8_t sequence_config = VL53L0X_readReg(SYSTEM_SEQUENCE_CONFIG);
@@ -944,11 +1115,17 @@ void VL53L0X_getSequenceStepEnables(struct SequenceStepEnables * enables)
 	enables->final_range = (sequence_config >> 7) & 0x1;
 }
 
-// Get sequence step timeouts
-// based on get_sequence_step_timeout(),
-// but gets all timeouts instead of just the requested one, and also stores
-// intermediate values
 
+/**
+ * @brief	Get Sequence Step Timeouts
+ * @param	enables Structure to hold values of {tcc, msrc, dss, pre_range, final_range}
+ * @param	timeouts Structure to hold vales of {uint16_t pre_range_vcsel_period_pclks, final_range_vcsel_period_pclks; uint16_t msrc_dss_tcc_mclks, pre_range_mclks, final_range_mclks; uint32_t msrc_dss_tcc_us, pre_range_us, final_range_us;}
+ * @note	Store requested timeout
+ *
+ * based on get_sequence_step_timeout(), grabs all timeouts instead of just requested one, and stores intermediate values
+ *
+ * @retval	none
+ */
 void VL53L0X_getSequenceStepTimeouts(struct SequenceStepEnables const * enables, struct SequenceStepTimeouts * timeouts)
 {
 	timeouts->pre_range_vcsel_period_pclks = VL53L0X_getVcselPulsePeriod(VcselPeriodPreRange);
@@ -978,11 +1155,17 @@ void VL53L0X_getSequenceStepTimeouts(struct SequenceStepEnables const * enables,
 			timeouts->final_range_vcsel_period_pclks);
 }
 
-// Decode sequence step timeout in MCLKs from register value
-// based on VL53L0X_decode_timeout()
-// Note: the original function returned a uint32_t, but the return value is
-// always stored in a uint16_t.
 
+/**
+ * @brief	Decode Timeout
+ * @param	reg_val Value stored in register
+ * @note	Decode sequence step timeout in MCLKs from register value
+ *
+ * based on VL53L0X_decode_timeout()
+ * original function returned a uint32_t, but return value is stored in uint16_t
+ *
+ * @retval	decoded value
+ */
 static uint16_t VL53L0X_decodeTimeout(uint16_t reg_val)
 {
 	// format: "(LSByte * 2^MSByte) + 1"
@@ -990,11 +1173,16 @@ static uint16_t VL53L0X_decodeTimeout(uint16_t reg_val)
 			(uint16_t) ((reg_val & 0xFF00) >> 8)) + 1;
 }
 
-// Encode sequence step timeout register value from timeout in MCLKs
-// based on VL53L0X_encode_timeout()
-// Note: the original function took a uint16_t, but the argument passed to it
-// is always a uint16_t.
 
+/**
+ * @brief	Encode Timeout
+ * @param	timeout_mclks Decode desired timeout value
+ * @note	Decode timeout mclks
+ *
+ * based on VL53L0X_encode_timeout()
+ *
+ * @retval	decoded timeout_mclks value
+ */
 static uint16_t VL53L0X_encodeTimeout(uint16_t timeout_mclks)
 {
 	// format: "(LSByte * 2^MSByte) + 1"
@@ -1016,9 +1204,17 @@ static uint16_t VL53L0X_encodeTimeout(uint16_t timeout_mclks)
 	}
 }
 
-// Convert sequence step timeout from MCLKs to microseconds with given VCSEL period in PCLKs
-// based on VL53L0X_calc_timeout_us()
 
+/**
+ * @brief	Timeout MCLKs to MicroSeconds
+ * @param	timeout_period_mclks	timeout period
+ * @param	vcsel_period_pclks		vcsel period
+ * @note	Convert sequence step timeout from MCLKs to microseconds with given VCSEL period in PCLKs
+ *
+ * based on VL53L0X_calc_timeout_us()
+ *
+ * @retval	timeout ms
+ */
 static uint32_t VL53L0X_timeoutMclksToMicroseconds(uint16_t timeout_period_mclks, uint8_t vcsel_period_pclks)
 {
 	uint32_t macro_period_ns = calcMacroPeriod(vcsel_period_pclks);
@@ -1026,9 +1222,17 @@ static uint32_t VL53L0X_timeoutMclksToMicroseconds(uint16_t timeout_period_mclks
 	return((timeout_period_mclks * macro_period_ns) + (macro_period_ns / 2)) / 1000;
 }
 
-// Convert sequence step timeout from microseconds to MCLKs with given VCSEL period in PCLKs
-// based on VL53L0X_calc_timeout_mclks()
 
+/**
+ * @brief	Timeout MicroSeconds to MCLKs
+ * @param	timeout_period_us		timeout period
+ * @param	vcsel_period_pclks		vcsel period
+ * @note	Convert sequence step timeout from microseconds to MCLKs with given VCSEL period in PCLKs
+ *
+ * based on VL53L0X_calc_timeout_mclks()
+ *
+ * @retval	timeout mclks
+ */
 static uint32_t VL53L0X_timeoutMicrosecondsToMclks(uint32_t timeout_period_us, uint8_t vcsel_period_pclks)
 {
 	uint32_t macro_period_ns = calcMacroPeriod(vcsel_period_pclks);
@@ -1037,8 +1241,15 @@ static uint32_t VL53L0X_timeoutMicrosecondsToMclks(uint32_t timeout_period_us, u
 }
 
 
-// based on VL53L0X_perform_single_ref_calibration()
-
+/**
+ * @brief	Perform Single Ref Calibration
+ * @param	vhv_init_byte initialization byte
+ * @note	Performing calibration  -- VL53L0X_perform_phase_calibration() begin --
+ *
+ * based on VL53L0X_perform_single_ref_calibration()
+ *
+ * @retval	True | False Successful execution
+ */
 bool VL53L0X_performSingleRefCalibration(uint8_t vhv_init_byte)
 {
 	VL53L0X_writeReg(SYSRANGE_START, 0x01 | vhv_init_byte); // VL53L0X_REG_SYSRANGE_MODE_START_STOP
@@ -1057,6 +1268,22 @@ bool VL53L0X_performSingleRefCalibration(uint8_t vhv_init_byte)
 	return true;
 }
 
+
+/**
+ * @brief	Long Range
+ * @note	Begin process of Long Range
+ *
+ * Designed to modify some static parameters for maximum range
+ * 2000mm Should be reached under perfect condition
+ * Modify SRL
+ * Modify Vcsel period PreRange
+ * Modify Vcsel period FinalRange
+ *
+ * Currently not working properly -> Read up on documentation for better understanding. Might miss some parameter
+ * Crash / Freeze will occour when executing this function
+ *
+ * @retval	True | False Successful execution
+ */
 bool VL53L0X_Long_Range()
 {
 	// set final range signal rate limit to 0.1 MCPS (million counts per second)

@@ -1,8 +1,13 @@
-/*
- * VL53L0X.h
- *
- *  Created on: Apr 21, 2021
- *      Author: Trasan
+/**
+ ******************************************************************************
+ * @file           : VL53L0X.h
+ * @brief          : Header file for VL53L0X.c file
+ ******************************************************************************
+ * @author  Tobias Mesch
+ * @version 1.0
+ * @date    2021-05-20
+ * @brief   Contains support libraries and variables used by VL53L0X.c
+ ******************************************************************************
  */
 
 #ifndef INC_VL53L0X_H_
@@ -13,13 +18,9 @@
 #include <stdbool.h> //include boolean values
 
 
-
-
-
 extern struct vl53l0x VL53L0X;
 
 // register addresses from API vl53l0x_device.h (ordered as listed there)
-
 enum regAddr {
 	SYSRANGE_START = 0x00,
 
@@ -109,7 +110,6 @@ enum vcselPeriodType {
 };
 
 
-//created by me
 struct vl53l0x{
 	uint8_t address;
 	uint16_t io_timeout;
@@ -123,8 +123,6 @@ struct vl53l0x{
 };
 
 
-//VL53L0X(void);
-
 void VL53L0X_setAddress(uint8_t new_addr);
 
 inline uint8_t VL53L0X_getAddress(void)
@@ -132,7 +130,6 @@ inline uint8_t VL53L0X_getAddress(void)
 	return VL53L0X.address;
 }
 
-//bool init(bool io_2v8 = true); remove default argument cuz it is c++ feature
 bool VL53L0X_init(bool io_2v8);
 
 void VL53L0X_writeReg(uint8_t reg, uint8_t value);
@@ -154,7 +151,6 @@ uint32_t VL53L0X_getMeasurementTimingBudget(void);
 bool VL53L0X_setVcselPulsePeriod(enum vcselPeriodType type, uint8_t period_pclks);
 uint16_t VL53L0X_getVcselPulsePeriod(enum vcselPeriodType type);
 
-//void startContinuous(uint32_t period_ms = 0); remove default argument
 void VL53L0X_startContinuous(uint32_t period_ms);
 void VL53L0X_stopContinuous(void);
 uint16_t VL53L0X_readRangeContinuousMillimeters(void);
@@ -162,29 +158,8 @@ uint16_t VL53L0X_readRangeSingleMillimeters(void);
 
 #define VL53L0X_setTimeout(t) (VL53L0X.io_timeout = t)
 #define VL53L0X_getTimeout() (VL53L0X.io_timeout)
-/*
-inline void VL53L0X_setTimeout(uint16_t timeout)
-{
-	VL53L0X.io_timeout = timeout;
-}
-
-inline uint16_t VL53L0X_getTimeout(void)
-{
-	return VL53L0X.io_timeout;
-}
-*/
 
 bool VL53L0X_timeoutOccurred(void);
-
-// TCC: Target CentreCheck
-// MSRC: Minimum Signal Rate Check
-// DSS: Dynamic Spad Selection
-
-/* FIX replace boolean to bool
-struct SequenceStepEnables {
-	boolean tcc, msrc, dss, pre_range, final_range;
-};
- */
 
 struct SequenceStepEnables {
 	bool tcc, msrc, dss, pre_range, final_range;
@@ -197,19 +172,10 @@ struct SequenceStepTimeouts {
 	uint32_t msrc_dss_tcc_us, pre_range_us, final_range_us;
 };
 
-/*
-uint8_t address;
-uint16_t io_timeout;
-bool did_timeout;
-uint16_t timeout_start_ms;
-
-uint8_t stop_variable; // read by init and used when starting measurement; is StopVariable field of VL53L0X_DevData_t structure in API
-uint32_t measurement_timing_budget_us;
- */
-
 bool VL53L0X_getSpadInfo(uint8_t * count, bool * type_is_aperture);
 
 void VL53L0X_getSequenceStepEnables(struct SequenceStepEnables * enables);
+
 void VL53L0X_getSequenceStepTimeouts(struct SequenceStepEnables const * enables, struct SequenceStepTimeouts * timeouts);
 
 bool VL53L0X_performSingleRefCalibration(uint8_t vhv_init_byte);
