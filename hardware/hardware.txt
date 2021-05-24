@@ -26,3 +26,27 @@ Inställning för I2C:
 7-Bit primary adress lenght
 
 Alternate Function open drain & pull up för GPIO pin som kör SCL / SDA
+
+====================================================================================================================================
+
+För att köra wifi-modul krävs denna kod:
+
+esp8266_test(); //Testfunktion för att se att kommunikation med MCU & Wifi-modul fungerar -> Allt är inkopplat korrekt
+
+char SSID[] = "Tester"; //Skriv routers namn som önskas anslutas till
+char PWD[] = "Qwerty91"; //Skriv lösenord för routern
+esp8266_init(SSID,sizeof(SSID),PWD,sizeof(PWD)); //Skickar kod till ESP8266 modulen & försöker ansluta till wifi med ovan parametrar
+
+char HostIP[] = "f35rw3.messaging.internetofthings.ibmcloud.com"; //Ange IP address till broker som ska anslutas mot
+uint16_t HostPort = 8883; //Ange port som önskas anslutas mot
+esp8266_connect(HostIP,HostPort); //Öppnar upp en TCP länk mellan ESP8266 & broker
+
+/*Fungerar ej för närvarande*/
+char mqttName[] = "use-token-auth"; //Skriv in användarnamn för access till broker
+char mqttToken[] = "UwYL)BpD!O7Y&-Ah?u";//Skriv in lösenord för access till broker
+char publish[] = "iot-2/evt/1/fmt/JSON";//Address för publish sidan
+esp8266_transmit(mqttName,strlen(mqttName),mqttToken,strlen(mqttToken),publish,strlen(publish));//Returns OK | error -> specify for handler
+/* ---- */
+
+esp8266_disconnect(); //För att avsluta TCP länken
+
