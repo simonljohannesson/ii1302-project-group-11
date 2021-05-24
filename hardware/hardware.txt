@@ -50,3 +50,18 @@ esp8266_transmit(mqttName,strlen(mqttName),mqttToken,strlen(mqttToken),publish,s
 
 esp8266_disconnect(); //För att avsluta TCP länken
 
+====================================================================================================================================
+
+För programmet och testerna så finns det en header fil "settings.h" där man kan ställa in diverse inställningar
+
+Kommentera bort #undef för att testa det givna programmet
+
+#define TEST			//For testing purposes in program.c without the esp8266 module
+#undef TEST
+
+#define RUN_TEST_PROGRAM	//For testing purposes in Test.c
+#undef RUN_TEST_PROGRAM
+
+static const char SSID[]     	= "";			//SSID for the network
+static const char PASSWORD[] 	= "";			//Password for the specified network
+static const uint8_t ALIVE_SIGNAL = ;			//Time the program awaits to send an alive signal in seconds
